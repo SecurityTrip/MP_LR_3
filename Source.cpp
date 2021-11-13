@@ -123,11 +123,10 @@ int main()
     while (repeat) 
     {
         vector<double> array;
-        cout << "Enter the vector numbers: ";
-        int n = check_int();
         vector<double> arrayLib;
         double k;
-        
+        cout << "Enter the vector numbers: ";
+        int n = check_int();
         string vec_type = txtChek();
 
         if (vec_type == "1")
@@ -181,6 +180,7 @@ int main()
             cout << endl;
         }
         arrayLib = array;
+
         double start = clock();
 
         vector<double> sorted = sort(array);
@@ -189,8 +189,12 @@ int main()
 
         double mySort = (end - start) / CLOCKS_PER_SEC;
 
-        for (int i = 0; i < 20; i++)
-            cout << array[i] << " ";
+        if (array.size() < 15)
+            for (int i = 0; i < array.size(); i++)
+                cout << array[i] << " ";
+        else
+            for (int i = 0; i < 15; i++)
+                cout << array[i] << " ";
         cout << endl;
         cout << "Sorting time: " << mySort << endl;
 
@@ -199,8 +203,12 @@ int main()
         double  endLib = clock();
         double LibSort = (endLib - startLib) / CLOCKS_PER_SEC;
 
-        for (int i = 0; i < 20 - 1; i++)
-            cout << arrayLib[i] << " ";
+        if (arrayLib.size() < 15)
+            for (int i = 0; i < arrayLib.size(); i++)
+                cout << arrayLib[i] << " ";
+        else
+            for (int i = 0; i < 15; i++)
+                cout << arrayLib[i] << " ";
         cout << endl;
         cout << "Sorting time: " << LibSort << endl;
 
