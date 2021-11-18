@@ -5,25 +5,27 @@
 
 using namespace std;
 
-vector<double> sort(vector<double> mass) {
-    
-    int i, j, step;
-    int n = mass.size();
-    int tmp;
-    for (step = n / 2; step > 0; step /= 2)
-        for (i = step; i < n; i++)
+void Shell(vector<double>& arr, int n)
+{
+    int d = n / 2;
+    double time1 = clock() / 1000.0;
+
+    while (d > 0)
+    {
+        for (int i = 0; i < n - d; i++)
         {
-            tmp = mass[i];
-            for (j = i; j >= step; j -= step)
+            int j = i;
+            while (j >= 0 && arr[j] > arr[j + d])
             {
-                if (tmp < mass[j - step])
-                    mass[j] = mass[j - step];
-                else
-                    break;
+                int temp = arr[j];
+                arr[j] = arr[j + d];
+                arr[j + d] = temp;
+
+                j--;
             }
-            mass[j] = tmp;
         }
-    return mass;
+        d = d / 2;
+    }
 }
 
 string txtChek()
@@ -57,7 +59,7 @@ double check_input()		//проверка ввода чисел
 
 int check_int()		//проверка ввода чисел													
 {
-    double in_value;
+    int in_value;
     cin >> in_value;
     while ((cin.fail()) || (cin.peek() != '\n' || in_value <=0))
     {
@@ -113,12 +115,12 @@ bool frepeat() {
         return false;
     }
 }
-   
+
 
 int main() 
 {
+    cout.precision(10);
     bool repeat = true;
-    
 
     while (repeat) 
     {
@@ -183,26 +185,29 @@ int main()
 
         double start = clock();
 
-        vector<double> sorted = sort(array);
+        vector<double> sorted = Shell(array,array.size());
 
-        double end = clock();
+        start = clock() - start;
+        cout << endl;
 
-        double mySort = (end - start) / CLOCKS_PER_SEC;
+       
 
-        if (array.size() < 15)
-            for (int i = 0; i < array.size(); i++)
-                cout << array[i] << " ";
+        cout << "Sorted with function: ";
+        if (sorted.size() < 15)
+            for (int i = 0; i < sorted.size(); i++)
+                cout << sorted[i] << " ";
         else
             for (int i = 0; i < 15; i++)
-                cout << array[i] << " ";
+                cout << sorted[i] << " ";
         cout << endl;
-        cout << "Sorting time: " << mySort << endl;
+        cout << "Sorting function time: " << start / CLOCKS_PER_SEC << endl;
 
         double startLib = clock();
         sort(arrayLib.begin(), arrayLib.end());
-        double  endLib = clock();
-        double LibSort = (endLib - startLib) / CLOCKS_PER_SEC;
+        startLib = clock() - startLib;
+        
 
+        cout << "Sorted with library: ";
         if (arrayLib.size() < 15)
             for (int i = 0; i < arrayLib.size(); i++)
                 cout << arrayLib[i] << " ";
@@ -210,14 +215,13 @@ int main()
             for (int i = 0; i < 15; i++)
                 cout << arrayLib[i] << " ";
         cout << endl;
-        cout << "Sorting time: " << LibSort << endl;
+        cout << "Sorting library time: " << startLib / CLOCKS_PER_SEC << endl;
 
-        if (LibSort - (int)LibSort == 0)
+        if ((startLib / CLOCKS_PER_SEC) - (int)(startLib / CLOCKS_PER_SEC) == 0)
             cout << "Acceleration insignificant" << endl;
         else
-            cout << "Speed up library sorting: " << mySort / LibSort << endl;
+            cout << "Speed up library sorting: " << (start / CLOCKS_PER_SEC) / (startLib / CLOCKS_PER_SEC) << endl;
 
         repeat = frepeat();
     }
-
 }
