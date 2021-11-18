@@ -5,9 +5,9 @@
 
 using namespace std;
 
-void Shell(vector<double>& arr)
+void Shell(vector<double>& mass)
 {
-    int n = arr.size();
+    int n = mass.size();
     int d = n / 2;
     double time1 = clock() / 1000.0;
 
@@ -16,11 +16,11 @@ void Shell(vector<double>& arr)
         for (int i = 0; i < n - d; i++)
         {
             int j = i;
-            while (j >= 0 && arr[j] > arr[j + d])
+            while (j >= 0 && mass[j] > mass[j + d])
             {
-                int temp = arr[j];
-                arr[j] = arr[j + d];
-                arr[j + d] = temp;
+                int temp = mass[j];
+                mass[j] = mass[j + d];
+                mass[j + d] = temp;
 
                 j--;
             }
