@@ -5,8 +5,9 @@
 
 using namespace std;
 
-void Shell(vector<double>& arr, int n)
+void Shell(vector<double>& arr)
 {
+    int n = arr.size();
     int d = n / 2;
     double time1 = clock() / 1000.0;
 
@@ -185,7 +186,7 @@ int main()
 
         double start = clock();
 
-        vector<double> sorted = Shell(array,array.size());
+        Shell(array);
 
         start = clock() - start;
         cout << endl;
@@ -193,12 +194,12 @@ int main()
        
 
         cout << "Sorted with function: ";
-        if (sorted.size() < 15)
-            for (int i = 0; i < sorted.size(); i++)
-                cout << sorted[i] << " ";
+        if (array.size() < 15)
+            for (int i = 0; i < array.size(); i++)
+                cout << array[i] << " ";
         else
             for (int i = 0; i < 15; i++)
-                cout << sorted[i] << " ";
+                cout << array[i] << " ";
         cout << endl;
         cout << "Sorting function time: " << start / CLOCKS_PER_SEC << endl;
 
