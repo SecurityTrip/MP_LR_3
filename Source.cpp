@@ -9,7 +9,6 @@ void Shell(vector<double>& mass)
 {
     int n = mass.size();
     int d = n / 2;
-    double time1 = clock() / 1000.0;
 
     while (d > 0)
     {
